@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -7,17 +11,18 @@ import { InfrastructureService } from 'src/shared/infrastructure/infrastructure.
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService,
-    private readonly infrastructureService:InfrastructureService
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly infrastructureService: InfrastructureService,
   ) {}
 
   async create(createAuthDto: CreateAuthDto) {
     const { firstName, lastName, email, password, phone } = createAuthDto;
 
-    await this.infrastructureService.checkDuplicate("user",[
-      {property:"email",value:email},
-      {property:"phone",value:phone}
-    ])
+    await this.infrastructureService.checkDuplicate('user', [
+      { property: 'email', value: email },
+      { property: 'phone', value: phone },
+    ]);
     const hashPassword = await bcrypt.hash(password, 12);
 
     const user = await this.prisma.user.create({
@@ -28,18 +33,30 @@ export class AuthService {
         password: hashPassword,
         phone,
       },
-      select:{
-        id:true,
-        firstName:true,
-        lastName:true,
-        email:true,
-        phone:true
-      }
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+      },
     });
 
     return user;
   }
   async login(dto) {
-    return `This action returns all auth`;
+    const { email, password } = dto;
+
+    const userExist = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!userExist || !(await bcrypt.compare(password, userExist.password))) {
+      throw new UnauthorizedException('Email or password incorrect');
+    }
+    
+    return userExist
   }
 }
