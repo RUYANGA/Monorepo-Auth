@@ -22,7 +22,7 @@ export class InfrastructureService {
             })
             if(record){
                 throw new ConflictException(
-                    `${model} with ${field.property} ${field.value} already exists`
+                    `${field.property} ${field.value} already exists`
                 )
             }
         }
