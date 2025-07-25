@@ -1,36 +1,45 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+import * as bcrypt from 'bcrypt';
+import { InfrastructureService } from 'src/shared/infrastructure/infrastructure.service';
+
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
-
+  constructor(private readonly prisma: PrismaService,
+    private readonly infrastructureService:InfrastructureService
+  ) {}
 
   async create(createAuthDto: CreateAuthDto) {
     const { firstName, lastName, email, password, phone } = createAuthDto;
-    const existUser= await this.prisma.user.findUnique({where:{
-      email
-    }})
 
-    if(existUser){
-      throw new BadRequestException("User with email esixting ")
-    }
+    await this.infrastructureService.checkDuplicate("user",[
+      {property:"email",value:email},
+      {property:"phone",value:phone}
+    ])
+    const hashPassword = await bcrypt.hash(password, 12);
+
     const user = await this.prisma.user.create({
       data: {
         firstName,
         lastName,
         email,
-        password,
+        password: hashPassword,
         phone,
       },
+      select:{
+        id:true,
+        firstName:true,
+        lastName:true,
+        email:true,
+        phone:true
+      }
     });
 
-    return user
+    return user;
   }
-
   async login(dto) {
     return `This action returns all auth`;
   }
-
 }
