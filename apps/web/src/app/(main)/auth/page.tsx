@@ -36,7 +36,7 @@ export default function Page() {
 
     try {
       const res = await axios.post(
-        "https://monorepo-auth.onrender.com/auth/login",
+        "https://monorepo-auth-1.onrender.com/auth/login",
         form
       );
       toast.success("Login successful!", {

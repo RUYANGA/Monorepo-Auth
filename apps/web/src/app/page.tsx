@@ -38,7 +38,7 @@ export default function RegisterForm() {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      const res = await axios.post("https://monorepo-auth.onrender.com/auth/register", data);
+      const res = await axios.post("https://monorepo-auth-1.onrender.com/auth/register", data);
 
       toast.success("Registered successfully!");
       router.push("/dashboard/user");
