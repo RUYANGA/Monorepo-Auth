@@ -67,7 +67,7 @@ export default function RegisterForm() {
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="name">User Name</Label>
-                <Input type="text" placeholder="Merci RUYANGA" id="name" {...register("name")} />
+                <Input type="text" placeholder="ex: Merci RUYANGA" id="name" {...register("name")} />
                 {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
               </div>
 
@@ -75,7 +75,7 @@ export default function RegisterForm() {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
-                  placeholder="merci@example.com"
+                  placeholder="ex: merci@example.com"
                   id="email"
                   {...register("email")}
                 />
@@ -86,6 +86,7 @@ export default function RegisterForm() {
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  placeholder="ex: Merci%37"
                   type="password"
                   {...register("password")}
                 />
