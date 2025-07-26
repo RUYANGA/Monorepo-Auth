@@ -13,8 +13,9 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
-import { Loader } from "lucide-react";
+import { toast } from "sonner";
+import { CircleUserRound, Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [form, setForm] = useState({
@@ -24,6 +25,8 @@ export default function Page() {
     password: "",
     phone: "",
   });
+
+  const router = useRouter();
 
   const [isLoading, setLoading] = useState(false);
 
@@ -38,21 +41,30 @@ export default function Page() {
     try {
       const res = await axios.post("http://localhost:3001/auth/register", form);
       toast.success("Account created successfully!");
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Registration failed");
+      if (res.status === 201) {
+        router.push("/auth");
+      }
+    } catch (error: unknown) {
+      // Use type guard to safely access AxiosError properties
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Registration failed");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-8 bg-indigo-100">
-      <Card className="w-full max-w-sm ">
+    <div className="flex items-center justify-center min-h-screen p-8 bg-white">
+      <Card className="w-full max-w-sm shadow-2xl shadow-pink-300 from-cyan-300">
         <CardHeader>
           <CardTitle className="text-center text-2xl text-blue-500">
             Create your account
           </CardTitle>
         </CardHeader>
+
         <form onSubmit={handleSubmit}>
           <CardContent>
             <div className="flex flex-col gap-6">
@@ -67,7 +79,6 @@ export default function Page() {
                   value={form.firstName}
                   onChange={handleChange}
                 />
-                 {isLoading?form.email?"":"Email required":""}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="lname">Last Name</Label>
@@ -92,7 +103,6 @@ export default function Page() {
                   value={form.email}
                   onChange={handleChange}
                 />
-                {form.email?"":"Email required"}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="phone">Phone Number</Label>
@@ -107,15 +117,7 @@ export default function Page() {
                 />
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline hover:text-blue-700"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   name="password"
                   id="password"
@@ -143,12 +145,11 @@ export default function Page() {
               )}
             </Button>
             <p className="text-xl">
-              I have an account?{" "}
               <Link
-                href="/login"
+                href="/auth"
                 className="hover:text-blue-700 hover:underline"
               >
-                Login
+                I have an account? Login
               </Link>
             </p>
           </CardFooter>
