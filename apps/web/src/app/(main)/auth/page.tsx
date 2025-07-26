@@ -35,7 +35,10 @@ export default function Page() {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://monorepo-auth.onrender.com/auth/login", form);
+      const res = await axios.post(
+        "https://monorepo-auth.onrender.com/auth/login",
+        form
+      );
       toast.success("Login successful!", {
         description: "Welcome to our system",
       });
@@ -44,7 +47,9 @@ export default function Page() {
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Login failed, try again.");
+        toast.error(
+          error.response?.data?.message || "Login failed, try again."
+        );
       } else {
         toast.error("An unexpected error occurred");
       }
@@ -116,8 +121,11 @@ export default function Page() {
               )}
             </Button>
             <p>
-              <Link href="/auth/register" className="hover:text-blue-700 hover:underline">
-                Don't have an account?{" "}
+              <Link
+                href="/auth/register"
+                className="hover:text-blue-700 hover:underline"
+              >
+                Don&apos;t have an account?{" "}
                 <span className="text-blue-700 underline">Sign Up</span>
               </Link>
             </p>
