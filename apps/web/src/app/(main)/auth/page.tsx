@@ -14,8 +14,34 @@ import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { CheckCircle, CircleUserRound, Loader, User } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {useForm} from "react-hook-form";
+import {z} from "zod"
+import { userRegisterSchema } from "./hooks/userForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
+
+type FormData=z.infer<typeof userRegisterSchema>
+
+export function RegisterForm(){
+  const {
+    register,
+    handleSubmit,
+    formState:{errors,isSubmitting}
+  }=useForm<FormData>({
+    resolver:zodResolver(userRegisterSchema)
+})
+}
+
+const onSubmit=async (data:FormData)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
 
 export default function Page() {
   const [form, setForm] = useState({

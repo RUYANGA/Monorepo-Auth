@@ -17,28 +17,23 @@ export class AuthService {
   ) {}
 
   async create(createAuthDto: CreateAuthDto) {
-    const { firstName, lastName, email, password, phone } = createAuthDto;
+    const { email, password, name } = createAuthDto;
 
     await this.infrastructureService.checkDuplicate('user', [
       { property: 'email', value: email },
-      { property: 'phone', value: phone },
     ]);
     const hashPassword = await bcrypt.hash(password, 12);
 
     const user = await this.prisma.user.create({
       data: {
-        firstName,
-        lastName,
+       name,
         email,
         password: hashPassword,
-        phone,
       },
       select: {
         id: true,
-        firstName: true,
-        lastName: true,
+        name:true,
         email: true,
-        phone: true,
       },
     });
 

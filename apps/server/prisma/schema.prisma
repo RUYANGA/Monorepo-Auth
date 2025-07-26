@@ -8,16 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String          @id @default(uuid())
-  firstName String
-  lastName  String
-  phone     String          @unique
-  email     String          @unique
-  password  String
-  posts     Post[]
-  comments  Comment[]
-  profile   ProfileInfo?
-  groups    UsersToGroups[]
+  id       String          @id @default(uuid())
+  name     String
+  email    String          @unique
+  password String
+  posts    Post[]
+  comments Comment[]
+  profile  ProfileInfo?
+  groups   UsersToGroups[]
 }
 
 model Post {
