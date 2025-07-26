@@ -76,7 +76,7 @@ export default function Page() {
                   name="email"
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="ex: m@example.com"
                   required
                   value={form.email}
                   onChange={handleChange}
@@ -97,6 +97,7 @@ export default function Page() {
                   name="password"
                   id="password"
                   type="password"
+                  placeholder="ex: Merci%27"
                   required
                   value={form.password}
                   onChange={handleChange}
