@@ -16,44 +16,14 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {useForm} from "react-hook-form";
-import {z} from "zod"
-import { userRegisterSchema } from "./hooks/userForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-
-
-type FormData=z.infer<typeof userRegisterSchema>
-
-export function RegisterForm(){
-  const {
-    register,
-    handleSubmit,
-    formState:{errors,isSubmitting}
-  }=useForm<FormData>({
-    resolver:zodResolver(userRegisterSchema)
-})
-}
-
-const onSubmit=async (data:FormData)=>{
-  try {
-    
-  } catch (error) {
-    
-  }
-}
 
 export default function Page() {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    phone: "",
   });
 
   const router = useRouter();
-
   const [isLoading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +36,7 @@ export default function Page() {
 
     try {
       const res = await axios.post("https://monorepo-auth.onrender.com/auth/login", form);
-      toast.success("Login successfully!", {
+      toast.success("Login successful!", {
         description: "Welcome to our system",
       });
       if (res.status === 200) {
@@ -74,20 +44,20 @@ export default function Page() {
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Login failed try again");
+        toast.error(error.response?.data?.message || "Login failed, try again.");
       } else {
         toast.error("An unexpected error occurred");
       }
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-8 ">
-      <Card className="w-full max-w-sm  shadow-2xl shadow-pink-300 from-cyan-300">
+    <div className="flex items-center justify-center min-h-screen p-8">
+      <Card className="w-full max-w-sm shadow-2xl shadow-pink-300 from-cyan-300">
         <CardHeader>
-          <CardTitle className="text-center text-2xl text-blue-500  text-shadow-amber-400">
+          <CardTitle className="text-center text-2xl text-blue-500">
             Login
           </CardTitle>
         </CardHeader>
@@ -113,7 +83,7 @@ export default function Page() {
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline text-blue-700  "
+                    className="ml-auto text-sm underline-offset-4 hover:underline text-blue-700"
                   >
                     Forgot your password?
                   </a>
@@ -129,6 +99,7 @@ export default function Page() {
               </div>
             </div>
           </CardContent>
+
           <CardFooter className="flex-col gap-4 mt-9">
             <Button
               type="submit"
@@ -137,16 +108,17 @@ export default function Page() {
             >
               {isLoading ? (
                 <>
-                  <Loader className="mr-2 h-5 w-5 animate-spin " />
+                  <Loader className="mr-2 h-5 w-5 animate-spin" />
                   Login...
                 </>
               ) : (
                 "Login"
               )}
             </Button>
-            <p >
-              <Link href="/" className="hover:text-blue-700 hover:underline">
-                I have an account?{"   "} <span className="text-blue-700 underline"> Sign Up</span>
+            <p>
+              <Link href="/auth/register" className="hover:text-blue-700 hover:underline">
+                Don't have an account?{" "}
+                <span className="text-blue-700 underline">Sign Up</span>
               </Link>
             </p>
           </CardFooter>
