@@ -119,7 +119,7 @@ export default function Page() {
                 "Login"
               )}
             </Button>
-            <p className="text-xl">
+            <p >
               <Link href="/" className="hover:text-blue-700 hover:underline">
                 I have an account?{"   "} Sign Up
               </Link>
