@@ -53,6 +53,8 @@ export default function Page() {
       } else {
         toast.error("An unexpected error occurred");
       }
+    }finally{
+      setLoading(false)
     }
   };
 
