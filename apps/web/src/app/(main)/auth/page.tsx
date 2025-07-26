@@ -122,7 +122,7 @@ export default function Page() {
             </Button>
             <p>
               <Link
-                href="/auth/register"
+                href="/"
                 className="hover:text-blue-700 hover:underline"
               >
                 Don&apos;t have an account?{" "}
