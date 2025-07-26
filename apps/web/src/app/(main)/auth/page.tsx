@@ -120,7 +120,7 @@ export default function Page() {
             </Button>
             <p >
               <Link href="/" className="hover:text-blue-700 hover:underline">
-                I have an account?{"   "} Sign Up
+                I have an account?{"   "} <span className="text-blue-700 underline"> Sign Up</span>
               </Link>
             </p>
           </CardFooter>
