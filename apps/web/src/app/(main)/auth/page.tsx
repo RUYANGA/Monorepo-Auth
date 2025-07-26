@@ -43,13 +43,12 @@ export default function Page() {
       toast.success("Login successfully!", {
         description: "Welcome to our system",
       });
-      <Loader />;
       if (res.status === 200) {
         router.push("/dashboard/user");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Registration failed");
+        toast.error(error.response?.data?.message || "Login failed try again");
       } else {
         toast.error("An unexpected error occurred");
       }
