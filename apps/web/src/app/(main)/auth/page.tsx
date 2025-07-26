@@ -87,7 +87,7 @@ export default function Page() {
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline hover:text-blue-700"
+                    className="ml-auto text-sm underline-offset-4 hover:underline text-blue-700  "
                   >
                     Forgot your password?
                   </a>
