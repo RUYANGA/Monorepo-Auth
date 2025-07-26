@@ -14,7 +14,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { CircleUserRound, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,10 +42,12 @@ export default function RegisterForm() {
 
       toast.success("Registered successfully!");
       router.push("/dashboard/user");
-    } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Something went wrong. Try again."
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Registration failed");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }

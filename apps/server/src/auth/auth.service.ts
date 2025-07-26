@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -26,13 +22,13 @@ export class AuthService {
 
     const user = await this.prisma.user.create({
       data: {
-       name,
+        name,
         email,
         password: hashPassword,
       },
       select: {
         id: true,
-        name:true,
+        name: true,
         email: true,
       },
     });
@@ -51,7 +47,7 @@ export class AuthService {
     if (!userExist || !(await bcrypt.compare(password, userExist.password))) {
       throw new UnauthorizedException('Email or password incorrect');
     }
-    
-    return userExist
+
+    return userExist;
   }
 }
