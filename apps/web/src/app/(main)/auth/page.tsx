@@ -39,7 +39,7 @@ export default function Page() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3001/auth/login", form);
+      const res = await axios.post("https://monorepo-auth.onrender.com/auth/login", form);
       toast.success("Login successfully!", {
         description: "Welcome to our system",
       });

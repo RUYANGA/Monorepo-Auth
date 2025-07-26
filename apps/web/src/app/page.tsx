@@ -39,7 +39,7 @@ export default function Page() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3001/auth/register", form);
+      const res = await axios.post("https://monorepo-auth.onrender.com/auth/register", form);
       toast.success("Account created successfully!");
       if (res.status === 201) {
         router.push("/auth");
