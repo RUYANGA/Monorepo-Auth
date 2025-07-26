@@ -137,19 +137,19 @@ export default function Page() {
             >
               {isLoading ? (
                 <>
-                  <Loader className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader className="h-5 w-5 animate-spin" />
                   Creating...
                 </>
               ) : (
                 "Sign Up"
               )}
             </Button>
-            <p className="text-xl">
+            <p>
               <Link
                 href="/auth"
                 className="hover:text-blue-700 hover:underline"
               >
-                I have an account? Login
+                I have an account? <span className="text-blue-600 underline">Login</span>
               </Link>
             </p>
           </CardFooter>
