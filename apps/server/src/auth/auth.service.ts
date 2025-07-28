@@ -42,7 +42,7 @@ export class AuthService {
 
       return user;
     } catch (error) {
-      throw new InternalServerErrorException('Something went wrong, try again');
+      throw new InternalServerErrorException('Failed to create user');
     }
   }
   async login(dto): Promise<{ access_token: string }> {
