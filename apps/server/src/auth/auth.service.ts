@@ -42,10 +42,6 @@ export class AuthService {
 
       return user;
     } catch (error) {
-      if (error.code === 'P2002') {
-        throw new ConflictException('Email already exists');
-      }
-
       throw new InternalServerErrorException('Something went wrong, try again');
     }
   }
