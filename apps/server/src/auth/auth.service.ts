@@ -21,30 +21,28 @@ export class AuthService {
 
   async create(createAuthDto: CreateAuthDto) {
     const { email, password, name } = createAuthDto;
-    try {
-      await this.infrastructureService.checkDuplicate('user', [
-        { property: 'email', value: email },
-      ]);
-      const hashPassword = await bcrypt.hash(password, 12);
 
-      const user = await this.prisma.user.create({
-        data: {
-          email,
-          name,
-          password: hashPassword,
-        },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-        },
-      });
+    await this.infrastructureService.checkDuplicate('user', [
+      { property: 'email', value: email },
+    ]);
+    const hashPassword = await bcrypt.hash(password, 12);
 
-      return user;
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to create user');
-    }
+    const user = await this.prisma.user.create({
+      data: {
+        email,
+        name,
+        password: hashPassword,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    });
+
+    return user;
   }
+
   async login(dto): Promise<{ access_token: string }> {
     const { email, password } = dto;
 
