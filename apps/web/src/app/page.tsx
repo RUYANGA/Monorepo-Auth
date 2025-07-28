@@ -47,7 +47,7 @@ export default function RegisterForm() {
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Registration failed");
+        toast.error(error.response?.data?.message || 'Something went wrong, try again');
       } else {
         toast.error("An unexpected error occurred");
       }

@@ -50,8 +50,7 @@ export default function Page() {
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(
-          error.response?.data?.message || "Login failed, try again."
-        );
+          error.response?.data?.message || 'Something went wrong, try again'  );
       } else {
         toast.error("An unexpected error occurred");
       }
