@@ -4,11 +4,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 import * as bcrypt from 'bcrypt';
 import { InfrastructureService } from 'src/shared/infrastructure/infrastructure.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly jwtService:JwtService,
     private readonly infrastructureService: InfrastructureService,
   ) {}
 
@@ -35,7 +37,7 @@ export class AuthService {
 
     return user;
   }
-  async login(dto) {
+  async login(dto):Promise<{access_token:string}> {
     const { email, password } = dto;
 
     const userExist = await this.prisma.user.findUnique({
@@ -48,6 +50,16 @@ export class AuthService {
       throw new UnauthorizedException('Email or password incorrect');
     }
 
-    return userExist;
+    const payload={
+      sub:userExist.id,
+      email:userExist.email
+    }
+
+
+
+    return {
+      access_token:await this.jwtService.signAsync(payload),
+    };
   }
+  
 }

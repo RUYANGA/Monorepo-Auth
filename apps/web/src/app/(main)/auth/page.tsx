@@ -17,6 +17,8 @@ import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+const serverUrl=process.env.NEXT_PUBLIC_BACKEND_URL
+
 export default function Page() {
   const [form, setForm] = useState({
     email: "",
@@ -36,7 +38,7 @@ export default function Page() {
 
     try {
       const res = await axios.post(
-        "https://monorepo-auth-1.onrender.com/auth/login",
+        serverUrl + "/auth/login",
         form
       );
       toast.success("Login successful!", {
