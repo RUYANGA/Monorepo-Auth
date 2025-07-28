@@ -15,7 +15,7 @@ import { Calendar, Home, Inbox, Search, Settings} from "lucide-react"
 const items = [
   {
     title: "Home",
-    url: "/",
+    url: "/dashboard/user",
     icon: Home,
   },
   {
@@ -46,7 +46,6 @@ export function AppSidebar() {
    <div>
      <Sidebar>
       <SidebarHeader >
-        <h1 className="flex items-center justify-center text-2xl">Dashboard</h1>
         </SidebarHeader>
       <SidebarContent>
         <SidebarGroup >

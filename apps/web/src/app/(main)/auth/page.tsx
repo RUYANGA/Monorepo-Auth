@@ -16,8 +16,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-const serverUrl =process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
+//process.env.NEXT_PUBLIC_BACKEND_URL ||
+const serverUrl ="http://localhost:4000";
 
 export default function Page() {
   const [form, setForm] = useState({
