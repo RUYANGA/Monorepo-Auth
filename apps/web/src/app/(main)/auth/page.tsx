@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const serverUrl=process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"
+const serverUrl =process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
 
 export default function Page() {
   const [form, setForm] = useState({
@@ -37,20 +37,22 @@ export default function Page() {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        serverUrl + "/auth/login",
-        form
-      );
+      const res = await axios.post(serverUrl + "/auth/login", form);
       toast.success("Login successful!", {
         description: "Welcome to our system",
       });
+
+      const token = res.data.access_token;
+      localStorage.setItem("token", token);
+    
       if (res.status === 200) {
         router.push("/dashboard/user");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(
-          error.response?.data?.message || 'Something went wrong, try again'  );
+          error.response?.data?.message || "Something went wrong, try again"
+        );
       } else {
         toast.error("An unexpected error occurred");
       }
@@ -123,10 +125,7 @@ export default function Page() {
               )}
             </Button>
             <p>
-              <Link
-                href="/"
-                className="hover:text-blue-700 hover:underline"
-              >
+              <Link href="/" className="hover:text-blue-700 hover:underline">
                 Don&apos;t have an account?{" "}
                 <span className="text-blue-700 underline">Sign Up</span>
               </Link>
