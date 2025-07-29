@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation"
 import { Loader} from "lucide-react"
 import Image from "next/image"
 
+const serverUrl=process.env.NEXT_PUBLIC_API_URL
+
 export function LoginForm({
   className,
   ...props
@@ -31,7 +33,7 @@ export function LoginForm({
     e.preventDefault();
 
     try {
-      const res= await axios.post("http://localhost:4000/auth/login",form)
+      const res= await axios.post(serverUrl + "/auth/login",form)
       if(res.status===200){
       toast.success("Login successfully!")
       setForm({
@@ -137,6 +139,7 @@ export function LoginForm({
             <Image
               src="/easy.jpg"
               alt="Image"
+              fill
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>

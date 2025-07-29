@@ -8,14 +8,16 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
   app.enableCors({
-    origin:"*",//[process.env.FRONTEND_URL,"http://localhost:3000"]
-    Credential:true
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   });
+
   app.use(
     compression({
       level: 6,
       threshold: 1024,
-    }), 
+    }),
   );
   app.useGlobalPipes(
     new ValidationPipe({
@@ -25,6 +27,8 @@ async function bootstrap() {
   );
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
-  console.log(`🚀 Server running on http://localhost:${port} ${process.env.FRONTEND_URL}`);
+  console.log(
+    `🚀 Server running on http://localhost:${port} ${process.env.FRONTEND_URL}`,
+  );
 }
 bootstrap();

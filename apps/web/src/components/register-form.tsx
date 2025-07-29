@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation"
 import { Loader} from "lucide-react"
 import Image from "next/image"
 
+const serverUrl=process.env.NEXT_PUBLIC_API_URL
+
 export function RegisterForm({
   className,
   ...props
@@ -32,7 +34,7 @@ export function RegisterForm({
     e.preventDefault();
 
     try {
-      const res= await axios.post("http://localhost:4000/auth/register",form)
+      const res= await axios.post(serverUrl + "/auth/register",form)
 
 
       if(res.status ===201){
@@ -147,6 +149,7 @@ export function RegisterForm({
             <Image
               src="/easy.jpg"
               alt="Image"
+              fill
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
