@@ -37,15 +37,17 @@ export function LoginForm({
         password:""
       })
       router.push("/dashboard")
-    } catch (error:any) {
-      console.log(error)
-      toast.error(error.response?.data?.message ||"Something went wrong")
-      
-    }finally{
-      setLoading(false)
+      } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Something went wrong");
+      } else {
+        toast.error("Unexpected error occurred");
+      }
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-  }
-
+  };
 
 
   return (
