@@ -28,6 +28,8 @@ export function LoginForm({
   const [loading,setLoading]=useState(false)
   const router=useRouter()
 
+  console.log("server",serverUrl)
+
   const handleSubmit=async(e:React.FormEvent)=>{
     setLoading(true)
     e.preventDefault();
@@ -48,7 +50,7 @@ export function LoginForm({
       router.push("/dashboard")
     }
       } catch (error) {
-        
+
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong");
       } else {
