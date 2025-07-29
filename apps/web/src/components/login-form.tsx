@@ -33,16 +33,22 @@ export function LoginForm({
     e.preventDefault();
 
     try {
+
       const res= await axios.post(serverUrl + "/auth/login",form)
+
       if(res.status===200){
+
       toast.success("Login successfully!")
       setForm({
         email:"",
         password:""
+
       })
+
       router.push("/dashboard")
     }
       } catch (error) {
+        
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong");
       } else {
