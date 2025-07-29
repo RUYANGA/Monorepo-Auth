@@ -12,6 +12,7 @@ import axios from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { Loader} from "lucide-react"
+import Image from "next/image"
 
 export function LoginForm({
   className,
@@ -31,12 +32,14 @@ export function LoginForm({
 
     try {
       const res= await axios.post("http://localhost:4000/auth/login",form)
+      if(res.status===200){
       toast.success("Login successfully!")
       setForm({
         email:"",
         password:""
       })
       router.push("/dashboard")
+    }
       } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong");
@@ -131,7 +134,7 @@ export function LoginForm({
             </div>
           </form>
           <div className="bg-muted relative hidden md:block">
-            <img
+            <Image
               src="/easy.jpg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"

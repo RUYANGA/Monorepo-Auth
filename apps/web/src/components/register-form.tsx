@@ -12,6 +12,7 @@ import axios from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { Loader} from "lucide-react"
+import Image from "next/image"
 
 export function RegisterForm({
   className,
@@ -32,6 +33,9 @@ export function RegisterForm({
 
     try {
       const res= await axios.post("http://localhost:4000/auth/register",form)
+
+
+      if(res.status ===201){
       toast.success("Create successfully!")
       setForm({
         name:"",
@@ -39,6 +43,7 @@ export function RegisterForm({
         password:""
       })
       router.push("/login")
+    }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong");
@@ -139,7 +144,7 @@ export function RegisterForm({
             </div>
           </form>
           <div className="bg-muted relative hidden md:block">
-            <img
+            <Image
               src="/easy.jpg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
