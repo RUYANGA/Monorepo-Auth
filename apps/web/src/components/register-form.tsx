@@ -139,7 +139,7 @@ export function RegisterForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="/register" className="underline underline-offset-4">
+                <a href="/login" className="underline underline-offset-4">
                   Sign up
                 </a>
               </div>
