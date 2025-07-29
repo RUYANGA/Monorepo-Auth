@@ -2,6 +2,9 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { DollarSign, ShoppingCart, TrendingUp, Users } from "lucide-react";
+import { ReusableDialog } from "@/components/dialoge-form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
 
 export default function Page() {
   return (
@@ -22,9 +25,9 @@ export default function Page() {
                 </div>
                 <div className="bg- shadow-lg aspect-video rounded-xl p-7 ">
                   <div className="flex items-center justify-between p-4">
-                     <Users size={50} className="text-red-600" />
-                    <h1 className="font-bold text-2xl">Total Users</h1>
                    
+                    <h1 className="font-bold text-2xl">Total Users</h1>
+                     <Users size={50} className="text-red-600" />
                   </div>
                   <span className="text-3xl">48</span>
                 </div>
@@ -32,7 +35,6 @@ export default function Page() {
                   <div className="flex items-center justify-between p-4">
                     <h1 className="font-bold text-2xl">Sales Summary </h1>
                     <DollarSign size={48} className="text-red-600" />
-                    
                   </div>
                   <span className="text-3xl">9</span>
                 </div>
@@ -40,12 +42,29 @@ export default function Page() {
                   <div className="flex items-center justify-between p-4">
                     <h1 className="font-bold text-2xl">Recent Orders</h1>
                     <ShoppingCart size={48} className="text-red-600" />
-                    
                   </div>
                   <span className="text-3xl">50</span>
                 </div>
-
-               
+              </div>
+              <div className="flex items-center justify-end ">
+                <ReusableDialog
+                  title="New Products"
+                  description="Create new products."
+                  triggerText="Add Product"
+                >
+                  <div className="grid gap-3">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" name="name" placeholder="" required />
+                  </div>
+                  <div className="grid w-full max-w-sm items-center gap-3">
+                    <Label htmlFor="picture">Picture</Label>
+                    <Input id="picture" type="file" />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username">Description</Label>
+                    <textarea className="border-2 rounded-lg" />
+                  </div>
+                </ReusableDialog>
               </div>
               <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
             </div>
