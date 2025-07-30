@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation"
 import { Loader} from "lucide-react"
 import Image from "next/image"
 
-const serverUrl=process.env.NEXT_PUBLIC_API_URL
+const serverUrl=process.env.NEXT_PUBLIC_API_URL ||"http://localhost:4000"
 
 export function LoginForm({
   className,

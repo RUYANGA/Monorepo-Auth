@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 type ReusableDialogProps = {
   title: string;
   description?: string;
+  firstButton:string;
+  secondButton:string;
   triggerText: string;
   children: React.ReactNode;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -24,6 +26,8 @@ export function ReusableDialog({
   title,
   description,
   triggerText,
+  firstButton,
+  secondButton,
   children,
   onSubmit,
 }: ReusableDialogProps) {
@@ -46,10 +50,10 @@ export function ReusableDialog({
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline" type="button" className="bg-red-600 font-bold text-white hover:bg-red-700 hover:text-white">
-                Cancel
+                {firstButton}
               </Button>
             </DialogClose>
-            <Button type="submit" className="bg-indigo-500 font-bold hover:bg-indigo-700">Add Product</Button>
+            <Button type="submit" className="bg-indigo-500 font-bold hover:bg-indigo-700">{secondButton}</Button>
           </DialogFooter>
         </DialogContent>
       </form>

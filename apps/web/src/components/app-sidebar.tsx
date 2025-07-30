@@ -2,12 +2,13 @@
 
 import * as React from "react"
 import {
-  Bot,
-  Command,
+  Handbag,
+  HomeIcon,
   LifeBuoy,
   Send,
-  Settings2,
+  Settings,
   ShoppingCart,
+  Users,
   
 } from "lucide-react"
 
@@ -23,6 +24,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Home from "@/app/page"
 
 const data = {
   user: {
@@ -33,46 +35,27 @@ const data = {
   navMain: [
     {
       title: "Products",
-      url: "#",
-      icon: ShoppingCart ,
-      isActive: true,
-      items: [
-        {
-          title: "Create Products",
-          url: "#",
-        },
-        {
-          title: "View Products",
-          url: "#",
-        },
-       
-      ],
+      url: "/product",
+      icon: Handbag,
+
     },
     {
       title: "User Management",
+      url: "/user",
+      icon: Users,
+      
+    },
+     {
+      title: "Orders",
       url: "#",
-      icon: Bot,
-      isActive: true,
-      items: [
-        {
-          title: "View Users",
-          url: "#",
-        },
-        {
-          title: "Create Users",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      icon: ShoppingCart,
+      
     },
     
     {
       title: "Settings",
       url: "#",
-      icon: Settings2,
+      icon: Settings,
       items: [
         {
           title: "General",
@@ -118,13 +101,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+              <a href="/dashboard">
+                <div className="bg-indigo-600 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <HomeIcon className="size-4" />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-extrabold ">Easy Shop</span>
-                  {/* <span className="truncate text-xs">Enterprise</span> */}
+                <div className="grid flex-1 text-left text-2xl text-blue-600 leading-tight">
+                  <span className="truncate font-extrabold ">Home</span>
                 </div>
               </a>
             </SidebarMenuButton>
