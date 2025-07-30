@@ -8,6 +8,7 @@ import { SidebarInset } from "@/components/ui/sidebar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const urlServer=process.env.NEXT_PUBLIC_API_URL
 
 type User = {
   id: string;
@@ -23,7 +24,7 @@ export default function Page() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user")
+      .get(urlServer + "/user")
       .then((res) => {
         setUsers(res.data);
       })

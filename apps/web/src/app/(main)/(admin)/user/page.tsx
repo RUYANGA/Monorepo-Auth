@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { toast } from "sonner";
 
+const urlServer=process.env.NEXT_PUBLIC_API_URL
+
 type User = {
   id: string;
   name: string;
@@ -22,7 +24,7 @@ function UserPage() {
   const [isLoading,setLoading]=useState(true);
   
   useEffect(()=>{
-    axios.get("http://localhost:4000/user")
+    axios.get(urlServer + "/user")
     .then((res)=>{
       setUsers(res.data)
       toast.success("Get users successfully")
