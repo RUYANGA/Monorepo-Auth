@@ -5,6 +5,7 @@ import UserFormInput from "@/components/adminDashboard/user-form";
 
 function UserPage() {
   return <UserFormInput />;
+  
 }
 
 export default UserPage;
