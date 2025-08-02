@@ -42,7 +42,7 @@ export function DeleteDialoge({ userId, onDeleted }: DeleteDialogeProp) {
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog >
       <AlertDialogTrigger>Delete</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

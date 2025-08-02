@@ -9,8 +9,13 @@ type User = {
   id: string;
   name: string;
   email: string;
-  onDeleted?:()=> void
 };
+
+// type UserDataProps = {
+//   user: User;
+//   onDeleted?: () => void;
+//   onEdited?: () => void;
+// };
 
 function UserData() {
   const [users, setUsers] = useState<User[]>([]);
@@ -34,7 +39,18 @@ function UserData() {
   return (
     <div className="grid gap-2 grid-cols-1 sm:grid-cols-1 md:grid-cols-5 p-2">
       {users.map((user) => (
-        <UserCard key={user.id} user={user} onDeleted={()=>setUsers((u)=>u.filter((prev)=>prev.id !== user.id))} />
+        <UserCard
+          key={user.id}
+          user={user}
+          onDeleted={() =>
+            setUsers((u) => u.filter((prev) => prev.id !== user.id))
+          }
+          onEdited={(updatedUser) =>
+            setUsers((u) =>
+              u.map((prev) => (prev.id === updatedUser.id ? updatedUser : prev))
+            )
+          }
+        />
       ))}
     </div>
   );

@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import DeleteDialoge from "./delete-dialoge";
-import { DialogDemo } from "./adminDashboard/editUser-form";
+import { DialogEditUser } from "./adminDashboard/editUser-form";
 
 type User = {
   id: string;
@@ -19,9 +19,10 @@ type User = {
 
 type UserCardProps = {
   user: User;
-  onDeleted?: () => void; // ✅ Add this line
+  onDeleted?: () => void;
+  onEdited?: (updatedUser: User) => void; 
 };
-export function UserCard({ user,onDeleted}:UserCardProps) {
+export function UserCard({ user,onDeleted,onEdited}:UserCardProps) {
   const { name, email } = user;
   return (
     <Card className="w-full max-w-sm rounded-2xl border shadow-lg ">
@@ -45,14 +46,14 @@ export function UserCard({ user,onDeleted}:UserCardProps) {
 
       <CardFooter className="flex justify-end gap-2 pt-4">
     
-          <DialogDemo/>
+          <DialogEditUser userId={user.id} onEdited={onEdited} />
         
         <Button
           variant="destructive"
           size="sm"
           className="font-bold bg-red-500"
         >
-          <DeleteDialoge userId={user.id} onDeleted={onDeleted}/>
+          <DeleteDialoge userId={user.id} onDeleted={onDeleted} />
         </Button>
       </CardFooter>
     </Card>
